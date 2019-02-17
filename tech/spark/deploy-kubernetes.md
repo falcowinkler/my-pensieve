@@ -12,8 +12,9 @@ spark-submit --class SimpleApp --master k8s://http://127.0.0.1:8001 \
              --conf spark.kubernetes.container.image=<your-image> \
              --executor-memory 20G \
              --num-executors 50 \
-             --conf spark.kubernetes.namespace=<your-namespace> spark-sample.jar 
+             --conf spark.kubernetes.namespace=<your-namespace> http://www.foobar.com/spark-sample.jar 
 ```
+The jar needs to be accessible on the web or you specify an absolute path within the docker container.
 
 spark-submit will automatically setup a cluster and finish your spark job (Under the hood these are kubernetes jobs,
 so the cluster will shut down automatically and you can inspect the logs)
