@@ -1,0 +1,20 @@
+Spark jobs can be easily deployed on a kubernetes cluster
+
+To start, `git clone https://github.com/apache/spark.git`. Then
+
+1. Build spark with the command `./build/mvn -Pkubernetes -DskipTests clean package`
+2. Build the docker image from spark folder `./bin/docker-image-tool.sh -r $DOCKER_REPO -t $SPARK_VERSION build` 
+3. Push the image to repo `<your-image>`
+4. Upload your job. 
+```bash
+spark-submit --class SimpleApp --master k8s://http://127.0.0.1:8001 \
+             --deploy-mode cluster \
+             --conf spark.kubernetes.container.image=<your-image> \
+             --executor-memory 20G \
+             --num-executors 50 \
+             --conf spark.kubernetes.namespace=<your-namespace> http://www.foobar.com/spark-sample.jar 
+```
+The jar needs to be accessible on the web or you specify an absolute path within the docker container.
+
+spark-submit will automatically setup a cluster and finish your spark job (Under the hood these are kubernetes jobs,
+so the cluster will shut down automatically and you can inspect the logs)
