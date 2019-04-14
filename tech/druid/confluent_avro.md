@@ -1,0 +1,44 @@
+How to ingest confluent avro data in druid
+```json
+{
+  "type": "kafka",
+  "dataSchema": {
+    "dataSource": "userregs",
+    "parser": {
+      "type": "avro_stream",
+      "avroBytesDecoder" : {
+        "type" : "schema_registry",
+        "url" : "http://localhost:8093"
+      },
+      "parseSpec" : {
+        "format": "avro"
+      }
+    },
+    "metricsSpec" : [],
+    "granularitySpec": {
+      "type": "uniform",
+      "segmentGranularity": "DAY",
+      "queryGranularity": "NONE",
+      "rollup": false
+    }
+  },
+  "tuningConfig": {
+    "type": "kafka",
+    "reportParseExceptions": false
+  },
+  "ioConfig": {
+    "topic": "user_registrations",
+    "replicas": 2,
+    "taskDuration": "PT10M",
+    "completionTimeout": "PT20M",
+    "consumerProperties": {
+      "bootstrap.servers": "localhost:9092"
+    },
+    "useEarliestOffset": true
+  }
+}
+```
+
+```bash
+curl -X POST -H 'Content-Type: application/json' -d @path/to/<above-file>.json http://localhost:8090/druid/indexer/v1/supervisor
+```
