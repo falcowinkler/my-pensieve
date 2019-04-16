@@ -10,3 +10,7 @@ Open the .emacs config file with `M-x eval-expression RET (find-file user-init-f
 ---
 
 `M-x (un)comment-region` to easily (un)comment a selection
+
+---
+
+Press <F1> in an emacs window to get interactive help.
