@@ -33,3 +33,6 @@ pipelines as code
 tutorials / workshops
 - https://github.com/ThoughtWorksInc/continuous-intelligence-workshop
 - https://www.tensorflow.org/tfx/tutorials/tfx/workshop
+
+to-do list for stuff to check out:
+https://argoproj.github.io
