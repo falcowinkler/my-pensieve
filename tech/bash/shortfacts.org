@@ -1,0 +1,8 @@
+
+---
+
+Enable bash strict mode at the top of the file with `set -euo pipefail`
+
+---
+
+Make nicer lists by setting `IFS=$'\n\t'` at the beginning of the file. This changes your internal field seperator, meaning you can make newline+tab seperated lists (per default the seperator is space)

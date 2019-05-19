@@ -1,0 +1,75 @@
+original paper: https://ai.google/research/pubs/pub43146
+* Abstract
+machine learning is powerful for building complex systems quickly but they don't come for free,
+the paper elaborates on the following tech-debts of ML: boundary erosion, entanglement,
+hidden feedback loops, undeclared consumers, data dependencies, changes in the external world,
+and a variety of system-level anti-patterns
+* Machine Learning and Complex Systems
+- ML Libraries are treated as black boxes which is a catalyst for glue code and calibration layers with locked in assumptions
+- One might be tempted to re-use input signals (?) in general, hard dependecies to other systems arise quickly
+- changes in external world change behaviour in unexpected ways
+- we need monitoring and careful system design
+* Complex Models Erode Boundaries
+Abstraction boundaries (modular design, encapsulation) create maintainable code.
+But ML is applied when the /desired behavior cannot be effectively implemented in software logic without dependency on external data/ which makes Abstraction boundaries are hard to enforce (System behaviour depends on quirks of external data)
+** Entanglement
+A machine learning model entangles dependencies (data sources)
+because if only one feature changes, the whole system changes (in sometimes unforseen ways)
+CACE principle: /Changing Anything Changes Everything/ :)
+*Possible migitation*
+- isolate multiple models for parts of the data and serve ensembles,
+only possible if problem is decomposable and the cost of maintaining multiple models is feasible, see https://ai.google/research/pubs/pub37195
+- develop methods of gaining deep insights into the be- havior of model predictions as in https://ai.google/research/pubs/pub41159
+- Train with performance change as cost  https://ai.google/research/pubs/pub42452
+In general entanglement is always a problem in ML, but the above strategies may help.
+Changes to ML after first release are always hard, so be careful with first release.
+** Hidden feedback loops
+Assume a click through rate model has a feature that measures how many headlines a user has clicked in the last week.
+When the model is improved, so are the reccomendations and clicks. But temporarily this change is not for the whole last week,
+so the model might change its "opinion" about that feature upon retraining, which again changes the CTR and so forth...
+** Undeclared consumers
+Can occur if the model is made available e.g. on a streaming platform. Consumers break when the model changes its behaviour.
+And they may introduce more hidden feedback loops, e.g. if the CTR model is used to influence the frontend.
+* Data dependencies cost more than code dependencies
+dependency debt is a key contributor to system complexity (code OR data dependencies).
+data dependencies are harder to find cause no static linkage tool etc. can find them.
+** Unstable data deps
+Inputs may qualitatively change if the producer is itself a ML model or code ownerships are seperate.
+A remedy is to freeze and versionize datasets, though that might introduce stale data and increase complexity.
+** Un- / Underused features
+Those can arise if
+- Features added in the early development of an ML model are not required after new features have been added,
+- Feature Bundles are added
+- Features that only add very little to the metrics of a model are added
+\rightarrow Regularly check for useless features
+** Static analysis of data dependencies
+Unlike code data dependencies are hard to track if not annotated.
+This causes deletion or change of data to be hard.
+A solution used at google is to annotate data and features, described in https://ai.google/research/pubs/pub41159
+** Correction cascades
+If a model already solves a problem, and a solution for a different problem is required, it's easy to create a seperate model
+dependent on the first, that learns the correction. chains created in this pattern are hard to maintain and change for obvious reasons.
+Can be migitated by adding more features to a model and learning everything in one model (which comes with a cost, as coupling is created)
+* System-level spaghetti
+** Glue code
+if a general purpose-package is used for machine learning people tend to glue it to their domain.
+general-purpose systems are a quick win and they seem to be flexible because e.g. optimization algorithms and models can be exchanged easily.
+However in some large scale systems optimizations are done in the /construction/ of the problem space from raw data,
+which then tends to be embedded in glue code. that makes it hard to optimize.
+TLDR: invest in custom solutions for highly optimized and long-lasting solutions
+** Pipeline jungles
+A special case of glue code, the data preparation and featurization pipelines are messy. this is oftentimes the result of a
+seperated research and engineering team. Data science and engineering should work closely together.
+** Experimental code
+glue code and jungles make it likely that experimental codepaths as conditional branches within the main production code will arise.
+for little changes the cost of these experiments are low, but they still grow tech debt and have to be maintained
+** Configuration debt
+some models need a lot of configuration parameters. configuration changes should be extensively reviewed and tested, and configuration
+should be tested with invariants, not spread throughout the system, and extendable.
+* Dealing with changes in the external world
+** Fixed Thresholds in Dynamic Systems
+a fixed threshold on eg. a binary classifier is unpractical because with retraining the optimal threshold changes.
+learning the threshold alongside with model training can help.
+** Monitoring
+is critical. one should monitor prediction and label distributions.
+for systems that take real-world actions one should enforce and monitor action-limits.
