@@ -1,4 +1,4 @@
-How to ingest confluent avro data in druid
+* How to ingest confluent avro data in druid
 ```json
 {
   "type": "kafka",

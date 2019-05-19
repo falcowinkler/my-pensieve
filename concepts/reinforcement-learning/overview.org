@@ -1,6 +1,5 @@
 Reinforcement learning
 * Basics
-
 The basic principle is to maximize a reward by learning to map
 *states* to *actions*.
 
