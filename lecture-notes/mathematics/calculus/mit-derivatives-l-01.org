@@ -1,0 +1,37 @@
+18.01 Unit derivation
+
+* Geom. interpretation
+Goal: find a tangent line to some graph y = f(x) at point $P=(x_0, y_0)$.
+The tangent line (line going through point $P$) is described by the equation $y - y_0 = m(x - x_0)$.
+To write that down we need the /slope/ m and the point $x_0, y_0$.
+
+- $y_0 = f(x_0)$
+- $m=f'(x_0)$
+
+- /Def/ The derivative $f'(x_0)$ is the slope at the tangent line.
+How to find the tangent line? Limit of Secant line PQ as Q approaches P.
+More specifically the slope of the tangent line is $lim_{\delta x \rightarrow 0} \frac{\delta f}{\delta x}$.
+How do we find that limit?
+
+A slope is defined by a triangle with sides $x_0 \rightarrow x_0 + \delta x$ and $f(x_0) \rightarrow f(x_0 + \delta x)$.
+As the delta approaches 0 we find the slope of the tangent line at $(x_0, f(x_0))$.
+
+** /Def/ Difference quotient
+$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{f(x_0 + \delta x) - f(x_0)}{\delta x}$
+
+** Example 1
+$f(x) = \frac{1}{x}$
+$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{\frac{1}{x_0 + \delta x} - \frac{1}{x_0}}{\delta x}$$
+$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{1}{\delta x}(\frac{1}{x_0 + \delta x} - \frac{1}{x_0})$$
+$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{1}{\delta x}(\frac{x_0 - (x_0 + \delta x)}{(x_0 + \delta x)x_0})$$
+$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{-1}{(x_0 + \delta x)x_0}$$
+$$f'(x_0) = \frac{-1}{x_0^2}$$
+
+** Derivative of $x ^ n$
+Specifically
+$f(x) = x^n, n \in N$
+$$\frac{\delta f}{\delta x}  = \frac{(x  - \delta x)^n + x^n }{\delta x}$$
+With the binomial formula (where junk stands for terms that have $x^j, j > 1$ that will tend to zero anyways)
+$$(x + \delta x) ^ n = x^n + n x^{n-1}\delta x + junk$$
+We have
+$$\frac{\delta f}{\delta x}  = \frac{n x^{n-1}\delta x}{\delta x} = n x^{n-1}$$
