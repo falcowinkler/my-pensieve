@@ -1,0 +1,3 @@
+
+
+- Access metadata such as public IP, ami image id and lots more under `curl http://169.254.169.254/latest/`

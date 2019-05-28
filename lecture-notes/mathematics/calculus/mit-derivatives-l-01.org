@@ -10,28 +10,28 @@ To write that down we need the /slope/ m and the point $x_0, y_0$.
 
 - /Def/ The derivative $f'(x_0)$ is the slope at the tangent line.
 How to find the tangent line? Limit of Secant line PQ as Q approaches P.
-More specifically the slope of the tangent line is $lim_{\delta x \rightarrow 0} \frac{\delta f}{\delta x}$.
+More specifically the slope of the tangent line is $lim_{\Delta x \rightarrow 0} \frac{\Delta f}{\Delta x}$.
 How do we find that limit?
 
-A slope is defined by a triangle with sides $x_0 \rightarrow x_0 + \delta x$ and $f(x_0) \rightarrow f(x_0 + \delta x)$.
-As the delta approaches 0 we find the slope of the tangent line at $(x_0, f(x_0))$.
+A slope is defined by a triangle with sides $x_0 \rightarrow x_0 + \Delta x$ and $f(x_0) \rightarrow f(x_0 + \Delta x)$.
+As the Delta approaches 0 we find the slope of the tangent line at $(x_0, f(x_0))$.
 
 ** /Def/ Difference quotient
-$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{f(x_0 + \delta x) - f(x_0)}{\delta x}$
+$f'(x_0) = lim_{\Delta x \rightarrow 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}$
 
 ** Example 1
 $f(x) = \frac{1}{x}$
-$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{\frac{1}{x_0 + \delta x} - \frac{1}{x_0}}{\delta x}$$
-$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{1}{\delta x}(\frac{1}{x_0 + \delta x} - \frac{1}{x_0})$$
-$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{1}{\delta x}(\frac{x_0 - (x_0 + \delta x)}{(x_0 + \delta x)x_0})$$
-$$f'(x_0) = lim_{\delta x \rightarrow 0} \frac{-1}{(x_0 + \delta x)x_0}$$
+$$f'(x_0) = lim_{\Delta x \rightarrow 0} \frac{\frac{1}{x_0 + \Delta x} - \frac{1}{x_0}}{\Delta x}$$
+$$f'(x_0) = lim_{\Delta x \rightarrow 0} \frac{1}{\Delta x}(\frac{1}{x_0 + \Delta x} - \frac{1}{x_0})$$
+$$f'(x_0) = lim_{\Delta x \rightarrow 0} \frac{1}{\Delta x}(\frac{x_0 - (x_0 + \Delta x)}{(x_0 + \Delta x)x_0})$$
+$$f'(x_0) = lim_{\Delta x \rightarrow 0} \frac{-1}{(x_0 + \Delta x)x_0}$$
 $$f'(x_0) = \frac{-1}{x_0^2}$$
 
 ** Derivative of $x ^ n$
 Specifically
 $f(x) = x^n, n \in N$
-$$\frac{\delta f}{\delta x}  = \frac{(x  - \delta x)^n + x^n }{\delta x}$$
+$$\frac{\Delta f}{\Delta x}  = \frac{(x  - \Delta x)^n + x^n }{\Delta x}$$
 With the binomial formula (where junk stands for terms that have $x^j, j > 1$ that will tend to zero anyways)
-$$(x + \delta x) ^ n = x^n + n x^{n-1}\delta x + junk$$
+$$(x + \Delta x) ^ n = x^n + n x^{n-1}\Delta x + junk$$
 We have
-$$\frac{\delta f}{\delta x}  = \frac{n x^{n-1}\delta x}{\delta x} = n x^{n-1}$$
+$$\frac{\Delta f}{\Delta x}  = \frac{n x^{n-1}\Delta x}{\Delta x} = n x^{n-1}$$
